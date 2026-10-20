@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10233f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MaintiPro">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>MaintiPro — Suivi maintenance</title>
+<style>
+:root{--navy:#10233f;--blue:#2563eb;--cyan:#dbeafe;--bg:#f3f6fb;--ink:#17243a;--muted:#718096;--line:#e3e9f2;--green:#15803d;--orange:#c2410c;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);padding-bottom:84px}
+header{background:linear-gradient(140deg,#10233f,#1c4273);color:#fff;padding:22px 18px 24px;border-radius:0 0 24px 24px}
+.brand{display:flex;align-items:center;gap:11px}.logo{height:43px;width:43px;border-radius:13px;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:23px;font-weight:900}
+h1{font-size:21px;margin:0;letter-spacing:-.4px}header p{margin:5px 0 0;color:#d5e3f8;font-size:12px}.topline{display:flex;justify-content:space-between;align-items:center}.demo{font-size:10px;font-weight:800;letter-spacing:.7px;background:#ffffff20;border:1px solid #ffffff45;border-radius:99px;padding:7px 9px}
+main{padding:16px;max-width:760px;margin:auto}.screen{display:none}.screen.active{display:block}.section-title{font-size:20px;margin:7px 0 3px;font-weight:850;letter-spacing:-.5px}.subtitle{font-size:13px;color:var(--muted);margin:0 0 16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:white;border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:0 4px 12px #1c34550a}.stat .num{font-size:25px;font-weight:850;margin:7px 0 3px}.stat .label{font-size:12px;color:var(--muted)}.stat .emoji{font-size:19px}.card{background:white;border:1px solid var(--line);border-radius:17px;padding:15px;margin:12px 0;box-shadow:0 4px 12px #1c345508}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.card h3{font-size:15px;margin:0}.muted{color:var(--muted);font-size:12px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.action{border:0;border-radius:16px;padding:17px 12px;text-align:left;color:white;font-size:14px;font-weight:800;min-height:92px;box-shadow:0 5px 14px #10233f18}.action span{display:block;font-size:24px;margin-bottom:8px}.action.blue{background:#2563eb}.action.dark{background:#10233f}.action.green{background:#15803d}.action.orange{background:#c2410c}
+button{font:inherit;cursor:pointer}.primary,.secondary,.danger{border:0;border-radius:12px;padding:12px 14px;font-weight:800}.primary{background:var(--blue);color:white}.secondary{background:#eaf0f8;color:var(--navy)}.danger{background:#fee2e2;color:#991b1b}.full{width:100%}
+label{display:block;font-size:12px;font-weight:800;margin:14px 0 6px;color:#35445b}input,select,textarea{width:100%;border:1px solid #d7dfeb;background:#fff;border-radius:11px;padding:12px;font:inherit;font-size:15px;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2563eb1a}textarea{min-height:95px;resize:vertical}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pill{display:inline-block;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:850;background:#e8effa;color:#23456f}.pill.ok{background:#dcfce7;color:#166534}.pill.warn{background:#ffedd5;color:#9a3412}.pill.bad{background:#fee2e2;color:#991b1b}
+.listitem{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}.listitem:last-child{border-bottom:0}.listitem strong{display:block;font-size:14px}.listitem small{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.4}.empty{padding:22px 10px;text-align:center;color:var(--muted);font-size:13px}.bottomnav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px max(8px,env(safe-area-inset-bottom))}.navbtn{border:0;background:transparent;color:#8190a5;font-size:10px;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:58px;padding:5px}.navbtn span{font-size:20px}.navbtn.active{color:var(--blue)}.toast{position:fixed;z-index:10;bottom:85px;left:16px;right:16px;background:#10233f;color:#fff;padding:13px 15px;border-radius:12px;display:none;box-shadow:0 8px 24px #0002;font-size:13px}.filterrow{display:flex;gap:8px;margin:10px 0}.filterrow>*{flex:1}.note{font-size:11px;line-height:1.5;color:var(--muted);margin-top:12px}.inline-actions{display:flex;gap:8px;flex-wrap:wrap}.inline-actions button{flex:1}.machine-card{border-left:4px solid var(--blue)}.smallcaps{font-size:10px;letter-spacing:.8px;font-weight:900;color:var(--muted);text-transform:uppercase}
+@media(min-width:600px){main{padding:24px}.grid{grid-template-columns:repeat(4,1fr)}.actions{grid-template-columns:repeat(4,1fr)}header{padding-left:max(22px,calc((100% - 712px)/2));padding-right:max(22px,calc((100% - 712px)/2))}}
+</style>
+</head>
+<body>
+<header>
+ <div class="topline"><div class="brand"><div class="logo">M</div><div><h1>MaintiPro</h1><p>Suivi de maintenance compresseurs</p></div></div><div class="demo">MODE DÉMO</div></div>
+</header>
+<main>
+<section id="home" class="screen active">
+ <div class="section-title">Bonjour 👋</div><p class="subtitle">Voici l’état de ton parc aujourd’hui.</p>
+ <div class="grid">
+  <div class="stat"><div class="emoji">🧰</div><div class="num" id="statMachines">3</div><div class="label">Compresseurs</div></div>
+  <div class="stat"><div class="emoji">📋</div><div class="num" id="statInterventions">0</div><div class="label">Interventions enregistrées</div></div>
+  <div class="stat"><div class="emoji">🟠</div><div class="num" id="statUpcoming">0</div><div class="label">Révisions à venir</div></div>
+  <div class="stat"><div class="emoji">🔴</div><div class="num" id="statLate">0</div><div class="label">Échéances dépassées</div></div>
+ </div>
+ <div class="actions">
+  <button class="action blue" onclick="startIntervention('Révision')"><span>🛠️</span>Nouvelle révision</button>
+  <button class="action dark" onclick="startIntervention('Dépannage')"><span>🔧</span>Nouveau dépannage</button>
+  <button class="action green" onclick="showScreen('machines')"><span>🧰</span>Mes compresseurs</button>
+  <button class="action orange" onclick="showScreen('upcoming')"><span>📅</span>Échéances</button>
+ </div>
+ <div class="card"><div class="cardhead"><h3>Dernières interventions</h3><button class="secondary" onclick="showScreen('history')">Tout voir</button></div><div id="recentList"></div></div>
+ <p class="note">Prototype de démonstration : les données sont enregistrées dans ce navigateur sur cet appareil. Ce prototype ne synchronise pas encore le PC et l’iPhone et ne crée pas de rendez-vous Outlook.</p>
+</section>
+
+<section id="intervention" class="screen">
+ <div class="section-title">Nouvelle intervention</div><p class="subtitle">Les champs se débloquent dans l’ordre pour éviter les erreurs.</p>
+ <div class="card">
+  <div class="smallcaps">Étape 1 sur 5</div>
+  <label for="intType">Type d’intervention</label><select id="intType" onchange="typeChanged()"><option value="">Choisir…</option><option>Révision</option><option>Dépannage</option></select>
+  <label for="intClient">Client</label><select id="intClient" disabled onchange="clientChanged()"><option value="">Choisis d’abord le type…</option></select>
+  <label for="intMachine">Compresseur</label><select id="intMachine" disabled onchange="machineChanged()"><option value="">Choisis d’abord le client…</option></select>
+  <div id="revisionWrap"><label for="intRevision">Type de révision</label><select id="intRevision" disabled onchange="fieldChanged()"><option value="">Choisis d’abord le compresseur…</option><option>2000 h</option><option>4000 h</option><option>8000 h</option><option>12000 h</option><option>16000 h</option><option>20000 h</option><option>Autre</option></select></div>
+  <div class="formgrid"><div><label for="intDate">Date</label><input id="intDate" type="date" onchange="fieldChanged()"></div><div><label for="intHours">Heures machine (facultatif)</label><input id="intHours" type="number" min="0" placeholder="Ex. 8450" onchange="fieldChanged()"></div></div>
+  <label for="intNotes">Notes / travaux réalisés</label><textarea id="intNotes" placeholder="Pièces changées, contrôles, panne constatée…" oninput="fieldChanged()"></textarea>
+  <label for="intNext">Prochaine échéance (facultatif)</label><input id="intNext" type="date" onchange="fieldChanged()">
+  <div class="note">Pour ce prototype, tu peux choisir une échéance manuellement. Les rappels automatiques et le calcul par heures seront ajoutés ensuite.</div>
+  <button class="primary full" style="margin-top:18px" onclick="saveIntervention()">✓ Enregistrer l’intervention</button>
+  <button class="secondary full" style="margin-top:8px" onclick="showScreen('home')">Annuler</button>
+ </div>
+</section>
+
+<section id="machines" class="screen">
+ <div class="section-title">Mes compresseurs</div><p class="subtitle">Exemples modifiables pour tester les menus.</p>
+ <div class="card"><label for="machineSearch">Rechercher</label><input id="machineSearch" placeholder="Client, marque, modèle, série…" oninput="renderMachines()"></div>
+ <div id="machineList"></div>
+ <div class="card"><h3>Ajouter un compresseur</h3>
+  <label for="newClient">Client</label><input id="newClient" placeholder="Nom du client">
+  <div class="formgrid"><div><label for="newBrand">Marque</label><input id="newBrand" placeholder="Atlas Copco"></div><div><label for="newModel">Modèle</label><input id="newModel" placeholder="GA 37 VSD"></div></div>
+  <div class="formgrid"><div><label for="newSerial">N° de série</label><input id="newSerial" placeholder="ABC123"></div><div><label for="newKind">Type</label><input id="newKind" placeholder="Vis / piston"></div></div>
+  <button class="primary full" style="margin-top:15px" onclick="addMachine()">+ Ajouter le compresseur</button>
+ </div>
+</section>
+
+<section id="history" class="screen">
+ <div class="section-title">Historique</div><p class="subtitle">Toutes les interventions enregistrées sur cet appareil.</p>
+ <div class="card"><label for="historySearch">Rechercher dans l’historique</label><input id="historySearch" placeholder="Client, machine, notes…" oninput="renderHistory()"><div class="filterrow"><select id="historyType" onchange="renderHistory()"><option value="">Tous les types</option><option>Révision</option><option>Dépannage</option></select><button class="secondary" onclick="exportData()">Exporter les données</button></div></div>
+ <div class="card"><div id="historyList"></div></div>
+ <div class="card"><h3>Sauvegarde / transfert</h3><p class="muted">Exporte les données en JSON pour en garder une copie ou les transférer. Import depuis un autre appareil à prévoir dans une prochaine version.</p><button class="secondary full" onclick="exportData()">⬇ Exporter une sauvegarde</button><label for="importFile">Restaurer une sauvegarde JSON</label><input id="importFile" type="file" accept=".json,application/json" onchange="importData(event)"></div>
+</section>
+
+<section id="upcoming" class="screen">
+ <div class="section-title">Échéances</div><p class="subtitle">Révisions prévues selon les dates saisies lors des interventions.</p>
+ <div class="grid" style="grid-template-columns:1fr 1fr"><div class="stat"><div class="num" id="upcomingCount">0</div><div class="label">À venir</div></div><div class="stat"><div class="num" id="lateCount">0</div><div class="label">En retard</div></div></div>
+ <div class="card"><div id="upcomingList"></div></div>
+ <p class="note">Cette version de test n’envoie pas encore de notifications. Les échéances sont calculées à partir de la date « Prochaine échéance » saisie dans le formulaire.</p>
+</section>
+
+<section id="settings" class="screen">
+ <div class="section-title">Données & paramètres</div><p class="subtitle">Gère les données locales de ce prototype.</p>
+ <div class="card"><h3>Données de démonstration</h3><p class="muted">Le prototype démarre avec quelques machines fictives pour tester le choix client → compresseur. Remplace-les par des données fictives ou autorisées avant usage réel.</p><button class="secondary full" onclick="resetDemo()">Réinitialiser la démo</button></div>
+ <div class="card"><h3>À savoir</h3><p class="muted">Les données restent dans le stockage local de ce navigateur. Si tu ouvres ce fichier sur un autre appareil, les données ne seront pas partagées. N’y saisis pas de données confidentielles de ton entreprise pour le moment.</p></div>
+</section>
+</main>
+<nav class="bottomnav">
+ <button class="navbtn active" data-screen="home" onclick="showScreen('home')"><span>⌂</span>Accueil</button>
+ <button class="navbtn" data-screen="machines" onclick="showScreen('machines')"><span>🧰</span>Machines</button>
+ <button class="navbtn" data-screen="history" onclick="showScreen('history')"><span>📋</span>Historique</button>
+ <button class="navbtn" data-screen="upcoming" onclick="showScreen('upcoming')"><span>📅</span>Échéances</button>
+ <button class="navbtn" data-screen="settings" onclick="showScreen('settings')"><span>⚙️</span>Réglages</button>
+</nav>
+<div class="toast" id="toast"></div>
+<script>
+const demoMachines=[
+{id:1,client:"Atelier Martin",kind:"Vis",brand:"Atlas Copco",model:"GA 37 VSD",serial:"A37-1042"},
+{id:2,client:"Atelier Martin",kind:"Vis",brand:"ALMiG",model:"G-Drive 30",serial:"AL-8831"},
+{id:3,client:"Métal Services",kind:"Piston",brand:"Mauguière",model:"MAV 601",serial:"MV-0601"}
+];
+let machines=[],interventions=[];
+const $=id=>document.getElementById(id);
+function load(){try{machines=JSON.parse(localStorage.getItem("maintipro_machines"))||demoMachines.map(x=>({...x}));interventions=JSON.parse(localStorage.getItem("maintipro_interventions"))||[]}catch(e){machines=demoMachines.map(x=>({...x}));interventions=[]}}
+function persist(){localStorage.setItem("maintipro_machines",JSON.stringify(machines));localStorage.setItem("maintipro_interventions",JSON.stringify(interventions))}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(msg){let t=$("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2800)}
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.screen===id));if(id==="home")renderHome();if(id==="machines")renderMachines();if(id==="history")renderHistory();if(id==="upcoming")renderUpcoming();window.scrollTo({top:0,behavior:"smooth"})}
+function startIntervention(type){showScreen("intervention");$("intType").value=type;$("intDate").value=new Date().toLocaleDateString("en-CA");$("intHours").value="";$("intNotes").value="";$("intNext").value="";$("intRevision").value="";typeChanged();$("intClient").focus({preventScroll:true})}
+function typeChanged(){let type=$("intType").value; $("intClient").disabled=!type;$("intClient").innerHTML='<option value="">Choisir un client…</option>';let cs=[...new Set(machines.map(m=>m.client).filter(Boolean))].sort();cs.forEach(c=>$("intClient").add(new Option(c,c)));$("intMachine").disabled=true;$("intMachine").innerHTML='<option value="">Choisis d’abord le client…</option>';let rev=type==="Révision";$("revisionWrap").style.display=rev?"block":"none";$("intRevision").disabled=true;$("intRevision").value="";if(!type)$("intClient").innerHTML='<option value="">Choisis d’abord le type…</option>';fieldChanged()}
+function clientChanged(){let c=$("intClient").value;$("intMachine").innerHTML='<option value="">Choisir un compresseur…</option>';machines.filter(m=>m.client===c).forEach(m=>{let label=`${m.brand} ${m.model} — N° série : ${m.serial}`;$("intMachine").add(new Option(label,String(m.id)))});$("intMachine").disabled=!c;$("intRevision").disabled=true;$("intRevision").value="";fieldChanged()}
+function machineChanged(){$("intRevision").disabled=!($("intType").value==="Révision"&&$("intMachine").value);fieldChanged()}
+function fieldChanged(){}
+function saveIntervention(){let type=$("intType").value,client=$("intClient").value,machine=machines.find(m=>String(m.id)===$("intMachine").value),revision=$("intRevision").value,date=$("intDate").value;if(!type||!client||!machine||!date){toast("Complète le type, le client, le compresseur et la date.");return}if(type==="Révision"&&!revision){toast("Choisis le type de révision.");return}
+let item={id:Date.now(),type,client,machineId:machine.id,machine:`${machine.brand} ${machine.model} — N° série : ${machine.serial}`,revision:type==="Révision"?revision:"",date,hours:$("intHours").value,notes:$("intNotes").value.trim(),next:$("intNext").value};interventions.unshift(item);persist();toast("Intervention enregistrée dans l’historique ✓");showScreen("history")}
+function fmt(d){if(!d)return "—";let x=new Date(d+"T12:00:00");return isNaN(x)?"—":x.toLocaleDateString("fr-FR")}
+function status(next){if(!next)return ["Pas de date prévue",""];let today=new Date();today.setHours(0,0,0,0);let d=new Date(next+"T00:00:00");let diff=Math.ceil((d-today)/86400000);if(diff<0)return [`En retard de ${-diff} j`,"bad"];if(diff<=30)return [diff===0?"Aujourd’hui":`Dans ${diff} j`,"warn"];return [`Dans ${diff} j`,"ok"]}
+function renderHome(){let upcoming=interventions.filter(i=>i.next&&new Date(i.next+"T00:00:00")>=new Date(new Date().toDateString())).length;let late=interventions.filter(i=>i.next&&new Date(i.next+"T00:00:00")<new Date(new Date().toDateString())).length;$("statMachines").textContent=machines.length;$("statInterventions").textContent=interventions.length;$("statUpcoming").textContent=upcoming;$("statLate").textContent=late;let arr=interventions.slice(0,4);$("recentList").innerHTML=arr.length?arr.map(itemHTML).join(""):'<div class="empty">Aucune intervention pour le moment.<br>Appuie sur « Nouvelle révision » pour essayer.</div>'}
+function itemHTML(i){return `<div class="listitem"><div><strong>${escapeHtml(i.type)}${i.revision?" · "+escapeHtml(i.revision):""}</strong><small>${escapeHtml(i.client)}<br>${escapeHtml(i.machine)}<br>${fmt(i.date)}${i.notes?" · "+escapeHtml(i.notes):""}</small></div><span class="pill">${i.type==="Révision"?"RÉVISION":"DÉPANNAGE"}</span></div>`}
+function renderMachines(){let q=($("machineSearch")?.value||"").toLowerCase();let arr=machines.filter(m=>[m.client,m.brand,m.model,m.serial,m.kind].join(" ").toLowerCase().includes(q));$("machineList").innerHTML=arr.length?arr.map(m=>`<div class="card machine-card"><div class="cardhead"><h3>${escapeHtml(m.brand)} ${escapeHtml(m.model)}</h3><span class="pill">${escapeHtml(m.kind||"Machine")}</span></div><p class="muted">${escapeHtml(m.client)}<br>N° série : ${escapeHtml(m.serial)}</p><button class="secondary" onclick="startForMachine(${m.id})">Nouvelle intervention</button></div>`).join(""):'<div class="card empty">Aucun compresseur trouvé.</div>'}
+function startForMachine(id){let m=machines.find(x=>x.id===id);startIntervention("Révision");$("intClient").value=m.client;clientChanged();$("intMachine").value=String(m.id);machineChanged()}
+function addMachine(){let client=$("newClient").value.trim(),brand=$("newBrand").value.trim(),model=$("newModel").value.trim(),serial=$("newSerial").value.trim(),kind=$("newKind").value.trim();if(!client||!brand||!model||!serial){toast("Renseigne au minimum le client, la marque, le modèle et le numéro de série.");return}machines.push({id:Date.now(),client,brand,model,serial,kind:kind||"Compresseur"});persist();["newClient","newBrand","newModel","newSerial","newKind"].forEach(id=>$(id).value="");renderMachines();renderHome();toast("Compresseur ajouté ✓")}
+function renderHistory(){let q=($("historySearch")?.value||"").toLowerCase(),type=$("historyType")?.value||"";let arr=interventions.filter(i=>(!type||i.type===type)&&[i.client,i.machine,i.notes,i.revision,i.type].join(" ").toLowerCase().includes(q));$("historyList").innerHTML=arr.length?arr.map(itemHTML).join(""):'<div class="empty">Aucune intervention ne correspond à la recherche.</div>'}
+function renderUpcoming(){let arr=interventions.filter(i=>i.next).sort((a,b)=>a.next.localeCompare(b.next));$("upcomingCount").textContent=arr.filter(i=>status(i.next)[1]!=="bad").length;$("lateCount").textContent=arr.filter(i=>status(i.next)[1]==="bad").length;$("upcomingList").innerHTML=arr.length?arr.map(i=>{let s=status(i.next);return `<div class="listitem"><div><strong>${escapeHtml(i.client)}</strong><small>${escapeHtml(i.machine)}<br>Révision : ${escapeHtml(i.revision||i.type)}<br>Échéance : ${fmt(i.next)}</small></div><span class="pill ${s[1]}">${s[0]}</span></div>`}).join(""):'<div class="empty">Pas encore d’échéance.<br>Saisis une prochaine échéance lors d’une intervention.</div>'}
+function exportData(){let data={app:"MaintiPro",version:1,exportedAt:new Date().toISOString(),machines,interventions};let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="maintipro-sauvegarde.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);toast("Sauvegarde préparée")}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.machines)||!Array.isArray(d.interventions))throw Error();if(confirm("Remplacer les données locales par cette sauvegarde ?")){machines=d.machines;interventions=d.interventions;persist();renderHome();renderHistory();toast("Sauvegarde importée ✓")}}catch(err){toast("Fichier de sauvegarde invalide.")}};r.readAsText(f);e.target.value=""}
+function resetDemo(){if(confirm("Réinitialiser les machines de démonstration et effacer l’historique local ?")){machines=demoMachines.map(x=>({...x}));interventions=[];persist();renderHome();toast("Démo réinitialisée")}}
+load();if(!localStorage.getItem("maintipro_machines"))persist();renderHome();
+</script>
+<script>
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+}
+</script>
+</body></html>
